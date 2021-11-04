@@ -63,6 +63,12 @@ export type NextConfig = { [key: string]: any } & {
     gzipSize?: boolean
     craCompat?: boolean
   }
+  onDemandCacheRevalidate: {
+    enable: boolean
+    authKey: string
+    qsName: string
+    authHeaderName: string
+  }
 }
 
 export const defaultConfig: NextConfig = {
@@ -118,6 +124,12 @@ export const defaultConfig: NextConfig = {
     disableOptimizedLoading: false,
     gzipSize: true,
     craCompat: false,
+  },
+  onDemandCacheRevalidate: {
+    enable: false,
+    authKey: '',
+    qsName: '_revalidate',
+    authHeaderName: 'x-cache-revalidate-key',
   },
   webpack5:
     Number(process.env.NEXT_PRIVATE_TEST_WEBPACK4_MODE) > 0 ? false : undefined,
