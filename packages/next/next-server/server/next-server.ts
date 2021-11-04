@@ -1619,6 +1619,25 @@ export default class Server {
           }
         : undefined
 
+      // Verify and revalidate ondemand
+      if (!cachedData.isStale && this.nextConfig.onDemandCacheRevalidate.enable) {
+        const { onDemandCacheRevalidate } = this.nextConfig;
+
+        let canRevalidate = true;
+        if (onDemandCacheRevalidate.authKey) {
+          canRevalidate = req.headers[onDemandCacheRevalidate.authHeaderName] === onDemandCacheRevalidate.authKey;
+        }
+
+        if (canRevalidate) {
+          const urlObject = new URL(req.url || '', "http://localhost/");
+          const revalidateReq = urlObject.searchParams.get(onDemandCacheRevalidate.qsName) === '1'
+          if (revalidateReq) {
+            cachedData.isStale = true
+            console.log('🌟🌟🌟 ✅ On Demand Revalidate')
+          }
+        }
+      }
+
       if (!isDataReq && cachedData.pageData?.pageProps?.__N_REDIRECT) {
         await handleRedirect(cachedData.pageData)
       } else if (cachedData.isNotFound) {
