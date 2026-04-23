@@ -259,7 +259,7 @@
     "text-table": "0.2.0",
     "ua-parser-js": "0.7.28",
     "unistore": "3.4.1",
-    "uuid": "8.3.2",
+    "uuid": "14.0.0",
     "web-streams-polyfill": "3.0.3",
     "web-vitals": "2.1.0",
     "webpack-sources1": "npm:webpack-sources@1.4.3",
